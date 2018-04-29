@@ -34,7 +34,9 @@ def brand_directory(inputfile, fromdir, todir):
 
         # make directories at the destination
         for directory in directories:
-            os.mkdir(os.path.join(todir_root, directory))
+            new_directory = os.path.join(todir_root, directory)
+            if not os.path.isdir(new_directory):
+                os.mkdir(new_directory)
 
         # copy files to the destination
         for file in files:
