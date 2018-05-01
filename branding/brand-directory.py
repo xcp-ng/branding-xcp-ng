@@ -15,10 +15,6 @@ def replace_values(line, dictionary):
         search = "@" + key + "@"
         output = output.replace(search, value)
 
-    for key, value in dictionary.items():
-        search = "%{" + key + "}"
-        output = output.replace(search, value)
-
     return output
 
 def brand_directory(inputfile, fromdir, todir):
