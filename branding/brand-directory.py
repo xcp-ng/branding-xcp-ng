@@ -16,7 +16,7 @@ def replace_values(line, dictionary):
         output = output.replace(search, value)
 
     for key, value in dictionary.items():
-        search = "%" + key + "%"
+        search = "%{" + key + "}"
         output = output.replace(search, value)
 
     return output
