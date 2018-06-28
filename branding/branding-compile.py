@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+import os
 
 def compile_python(input_file):
     with open(input_file, 'r') as input_fd:
@@ -20,7 +21,9 @@ def main():
     parser = argparse.ArgumentParser(description='Output branding environment ' \
                                                  'variables in various formats')
     parser.add_argument('input',
-                        help='Branding input file')
+                        help='Branding input file',
+                        nargs='?',
+                        default=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'branding'))
     parser.add_argument('--format',
                         default='python',
                         help='Output format')
