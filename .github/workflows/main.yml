@@ -1,0 +1,46 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Python 2.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: '2.7'
+
+      - name: Generate module
+        run: |
+          ./branding/branding-compile.py > branding.py
+
+      - name: version
+        run: |
+          TAG="$(git describe --tags)"
+          echo "::set-output name=version::$TAG"
+        id: version
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: true
+          prerelease: true
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./branding.py
+          asset_name: branding.py
+          asset_content_type: text/x-python
