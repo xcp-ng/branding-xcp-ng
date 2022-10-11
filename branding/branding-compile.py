@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import sys
@@ -8,7 +8,7 @@ def compile_python(input_file):
     with open(input_file, 'r') as input_fd:
         for line in input_fd.readlines():
             [key, value] = line.strip().split('=')
-            print "%s = '%s'" % (key, value)
+            print("%s = '%s'" % (key, value))
 
 def compile(input_file, format):
     if format == 'python':
