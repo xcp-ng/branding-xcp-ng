@@ -61,15 +61,14 @@ def usage():
     print("  %s <inputfile> <fromdir> <todir>" % sys.argv[0])
     sys.exit(1)
 
-if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        usage()
-
-    inputfile = sys.argv[1]
-    fromdir   = sys.argv[2]
-    todir     = sys.argv[3]
-
+def main(args):
+    inputfile, fromdir, todir = args
     if not os.path.isdir(fromdir):
         fail_with_message("%s is not a directory" % fromdir)
     else:
         brand_directory(inputfile, fromdir, todir)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        usage()
+    main(sys.argv[1:])
