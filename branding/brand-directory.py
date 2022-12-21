@@ -11,7 +11,7 @@ def replace_values(line, dictionary):
     output = line
 
     for key, value in dictionary.items():
-        search = "@" + key + "@"
+        search = f"@{key}@"
         output = output.replace(search, value)
 
     return output
@@ -57,13 +57,13 @@ def fail_with_message(message):
 
 def usage():
     print("usage:")
-    print("  %s <inputfile> <fromdir> <todir>" % sys.argv[0])
+    print(f"  {sys.argv[0]} <inputfile> <fromdir> <todir>")
     sys.exit(1)
 
 def main(args):
     inputfile, fromdir, todir = args
     if not os.path.isdir(fromdir):
-        fail_with_message("%s is not a directory" % fromdir)
+        fail_with_message(f"{fromdir} is not a directory")
     else:
         brand_directory(inputfile, fromdir, todir)
 
