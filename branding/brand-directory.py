@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import os
@@ -53,12 +53,12 @@ def brand_directory(inputfile, fromdir, todir):
             shutil.copymode(fromfile, tofile)
 
 def fail_with_message(message):
-    print message
+    print(message)
     sys.exit(1)
 
 def usage():
-    print "usage:"
-    print "  %s <inputfile> <fromdir> <todir>" % sys.argv[0]
+    print("usage:")
+    print("  %s <inputfile> <fromdir> <todir>" % sys.argv[0])
     sys.exit(1)
 
 if __name__ == "__main__":
