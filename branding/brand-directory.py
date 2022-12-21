@@ -39,9 +39,9 @@ def brand_directory(inputfile, fromdir, todir):
                 os.mkdir(new_directory)
 
         # copy files to the destination
-        for file in files:
-            fromfile = os.path.join(root, file)
-            tofile = os.path.join(todir_root, file)
+        for filename in files:
+            fromfile = os.path.join(root, filename)
+            tofile = os.path.join(todir_root, filename)
 
             with open(fromfile, 'r', encoding="UTF-8") as fromfd:
                 with open(tofile, 'w', encoding="UTF-8") as tofd:

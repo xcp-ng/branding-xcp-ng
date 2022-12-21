@@ -10,11 +10,11 @@ def compile_python(input_file):
             [key, value] = line.strip().split('=')
             print("%s = '%s'" % (key, value))
 
-def compile(input_file, format):
-    if format == 'python':
+def compile_to(input_file, fmt):
+    if fmt == 'python':
         compile_python(input_file)
     else:
-        sys.stderr.write("unknown format: " + format + "\n")
+        sys.stderr.write("unknown format: " + fmt + "\n")
         sys.exit(1)
 
 def main():
@@ -29,7 +29,7 @@ def main():
                         help='Output format')
 
     args = parser.parse_args()
-    compile(args.input, args.format)
+    compile_to(args.input, args.format)
 
 if __name__ == "__main__":
     main()
