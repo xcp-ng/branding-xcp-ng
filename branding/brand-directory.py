@@ -23,8 +23,8 @@ def brand_directory(inputfile, fromdir, todir):
             [key, value] = line.strip().split('=')
             branding[key] = value
 
-    if fromdir[len(fromdir) - 1] != "/":
-        fromdir = fromdir + "/"
+    if not fromdir.endswith("/"):
+        fromdir += "/"
 
     if not os.path.isdir(todir):
         os.mkdir(todir)
