@@ -5,7 +5,7 @@ import sys
 import os
 
 def compile_python(input_file):
-    with open(input_file, 'r') as input_fd:
+    with open(input_file, 'r', encoding="UTF-8") as input_fd:
         for line in input_fd.readlines():
             [key, value] = line.strip().split('=')
             print("%s = '%s'" % (key, value))

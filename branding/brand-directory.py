@@ -19,7 +19,7 @@ def replace_values(line, dictionary):
 
 def brand_directory(inputfile, fromdir, todir):
     branding = {}
-    with open(inputfile, 'r') as inputfd:
+    with open(inputfile, 'r', encoding="UTF-8") as inputfd:
         for line in inputfd.readlines():
             [key, value] = line.strip().split('=')
             branding[key] = value
@@ -43,8 +43,8 @@ def brand_directory(inputfile, fromdir, todir):
             fromfile = os.path.join(root, file)
             tofile = os.path.join(todir_root, file)
 
-            with open(fromfile, 'r') as fromfd:
-                with open(tofile, 'w') as tofd:
+            with open(fromfile, 'r', encoding="UTF-8") as fromfd:
+                with open(tofile, 'w', encoding="UTF-8") as tofd:
                     for fromline in fromfd.readlines():
                         toline = replace_values(fromline, branding)
                         tofd.write(toline)
