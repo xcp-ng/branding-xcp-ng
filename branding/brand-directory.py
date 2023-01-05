@@ -1,6 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import argparse
 import os
 import shutil
 import sys
@@ -12,20 +11,20 @@ def replace_values(line, dictionary):
     output = line
 
     for key, value in dictionary.items():
-        search = "@" + key + "@"
+        search = f"@{key}@"
         output = output.replace(search, value)
 
     return output
 
 def brand_directory(inputfile, fromdir, todir):
     branding = {}
-    with open(inputfile, 'r') as inputfd:
+    with open(inputfile, 'r', encoding="UTF-8") as inputfd:
         for line in inputfd.readlines():
             [key, value] = line.strip().split('=')
             branding[key] = value
 
-    if fromdir[len(fromdir) - 1] != "/":
-        fromdir = fromdir + "/"
+    if not fromdir.endswith("/"):
+        fromdir += "/"
 
     if not os.path.isdir(todir):
         os.mkdir(todir)
@@ -39,12 +38,12 @@ def brand_directory(inputfile, fromdir, todir):
                 os.mkdir(new_directory)
 
         # copy files to the destination
-        for file in files:
-            fromfile = os.path.join(root, file)
-            tofile = os.path.join(todir_root, file)
+        for filename in files:
+            fromfile = os.path.join(root, filename)
+            tofile = os.path.join(todir_root, filename)
 
-            with open(fromfile, 'r') as fromfd:
-                with open(tofile, 'w') as tofd:
+            with open(fromfile, 'r', encoding="UTF-8") as fromfd:
+                with open(tofile, 'w', encoding="UTF-8") as tofd:
                     for fromline in fromfd.readlines():
                         toline = replace_values(fromline, branding)
                         tofd.write(toline)
@@ -53,23 +52,22 @@ def brand_directory(inputfile, fromdir, todir):
             shutil.copymode(fromfile, tofile)
 
 def fail_with_message(message):
-    print message
+    print(message)
     sys.exit(1)
 
 def usage():
-    print "usage:"
-    print "  %s <inputfile> <fromdir> <todir>" % sys.argv[0]
+    print("usage:")
+    print(f"  {sys.argv[0]} <inputfile> <fromdir> <todir>")
     sys.exit(1)
+
+def main(args):
+    inputfile, fromdir, todir = args
+    if not os.path.isdir(fromdir):
+        fail_with_message(f"{fromdir} is not a directory")
+    else:
+        brand_directory(inputfile, fromdir, todir)
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         usage()
-
-    inputfile = sys.argv[1]
-    fromdir   = sys.argv[2]
-    todir     = sys.argv[3]
-
-    if not os.path.isdir(fromdir):
-        fail_with_message("%s is not a directory" % fromdir)
-    else:
-        brand_directory(inputfile, fromdir, todir)
+    main(sys.argv[1:])

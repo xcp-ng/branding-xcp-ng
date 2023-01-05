@@ -5,16 +5,16 @@ import sys
 import os
 
 def compile_python(input_file):
-    with open(input_file, 'r') as input_fd:
+    with open(input_file, 'r', encoding="UTF-8") as input_fd:
         for line in input_fd.readlines():
             [key, value] = line.strip().split('=')
-            print("%s = '%s'" % (key, value))
+            print(f"{key} = '{value}'")
 
-def compile(input_file, format):
-    if format == 'python':
+def compile_to(input_file, fmt):
+    if fmt == 'python':
         compile_python(input_file)
     else:
-        sys.stderr.write("unknown format: " + format + "\n")
+        sys.stderr.write(f"unknown format: {fmt}\n")
         sys.exit(1)
 
 def main():
@@ -23,13 +23,14 @@ def main():
     parser.add_argument('input',
                         help='Branding input file',
                         nargs='?',
-                        default=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'branding'))
+                        default=os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                             'branding'))
     parser.add_argument('--format',
                         default='python',
                         help='Output format')
 
     args = parser.parse_args()
-    compile(args.input, args.format)
+    compile_to(args.input, args.format)
 
 if __name__ == "__main__":
     main()
