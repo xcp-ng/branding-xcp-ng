@@ -4,11 +4,12 @@ import argparse
 import sys
 import os
 
+from lib.common import get_branding_dict
+
 def compile_python(input_file):
-    with open(input_file, 'r') as input_fd:
-        for line in input_fd.readlines():
-            [key, value] = line.strip().split('=')
-            print "%s = '%s'" % (key, value)
+    branding = get_branding_dict(input_file)
+    for key in sorted(branding.keys()):
+        print "%s = '%s'" % (key, branding[key])
 
 def compile(input_file, format):
     if format == 'python':

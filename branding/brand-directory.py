@@ -5,6 +5,8 @@ import os
 import shutil
 import sys
 
+from lib.common import get_branding_dict
+
 def replace_values(line, dictionary):
     """
     For each (key, value) in dictionary, replace @key@ with value in line.
@@ -18,11 +20,7 @@ def replace_values(line, dictionary):
     return output
 
 def brand_directory(inputfile, fromdir, todir):
-    branding = {}
-    with open(inputfile, 'r') as inputfd:
-        for line in inputfd.readlines():
-            [key, value] = line.strip().split('=')
-            branding[key] = value
+    branding = get_branding_dict(inputfile)
 
     if fromdir[len(fromdir) - 1] != "/":
         fromdir = fromdir + "/"
