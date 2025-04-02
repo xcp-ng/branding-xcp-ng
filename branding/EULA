@@ -1,8 +1,8 @@
 The programs included with the XCP-ng system are free software.
-To know more about the licenses of all programs,
-please read each COPYING file in the /usr/share/doc/* folders.
+
+The license terms for each program can be found in the /usr/share/doc/* directories.
 
 XCP-ng comes with no warranty, to the extent permitted by applicable law.
 
-For more info on XCP-ng, please check https://xcp-ng.org
-Pro support for production environment is available on https://xcp-ng.com
+Please visit xcp-ng.org for more information about XCP-ng,
+and vates.tech for professional support options.
